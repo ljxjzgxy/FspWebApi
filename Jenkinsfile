@@ -1,44 +1,30 @@
-env.DOCKER_IMAGE_VERSION='v1.0.0'
-env.DOCKER_NAME_DEV='dev.web.api'
-env.DOCKER_NAME_TEST='test.web.api'
-
 pipeline {
     agent any 
-   
+
+    environment { 
+        DOCKER_IMAGE_VERSION = 'v1.0.0'
+        DOCKER_NAME_DEV_PREFIX = 'dev.'
+        DOCKER_NAME_TEST_PREFIX = 'test.'
+        PORT = '8888'
+    }
+
     stages {  
-        stage('Build Image') {
+        stage('build identify.svc - dev') {
             when { 
-                changeset "web.api/**"
+                changeset "identify.svc/**"
                 branch 'develop'
             }
-            steps {
-               sh 'docker build -t  $DOCKER_NAME_DEV:$DOCKER_IMAGE_VERSION.${BUILD_ID} -f Dockerfile.dev .'
-               sh 'docker rm -f $DOCKER_NAME_DEV || true'
-               sh 'docker run -d --name $DOCKER_NAME_DEV -p 8888:80 $DOCKER_NAME_DEV:$DOCKER_IMAGE_VERSION.${BUILD_ID}'
-            }
-        }
 
-        stage('master') {
-            when { branch 'master' }
-            steps {
-               sh 'docker build -t $DOCKER_NAME_TEST:$DOCKER_IMAGE_VERSION.${BUILD_ID} -f Dockerfile.dev .'
-               sh 'docker rm -f $DOCKER_NAME_TEST || true'
-               sh 'docker run -d --name $DOCKER_NAME_TEST -p 9999:80  $DOCKER_NAME_TEST:$DOCKER_IMAGE_VERSION.${BUILD_ID}'
+            environment {
+                NAME = "${DOCKER_NAME_DEV_PREFIX}" + "identify.svc"                
+                IMAGE_NAME = "${NAME}:" + "${DOCKER_IMAGE_VERSION}" + "." + "${BUILD_ID}"
             }
-        }
 
-
-       stage('changeset test'){
-          when { changeset "infrustruture/**"}
             steps {
-                sh 'echo library changed'
+               sh 'docker build -t ${IMAGE_NAME} -f identify.svc/Dockerfile.dev .'
+               sh 'docker rm -f ${NAME} || true'
+               sh 'docker run -d --name ${INAME} -p $PORT:80 ${IMAGE_NAME}'
             }
-        }      
-        
-        stage('End of Job'){   
-            steps {
-                sh 'echo ------------ The end of build job------------'
-            }
-        } 
+        }   
     }
 }
