@@ -4,10 +4,18 @@ pipeline {
     environment { 
         APP_VERSION = 'v1.0.0'
         DEV_PREFIX = 'dev.'
-        DOCKER_NAME_TEST_PREFIX = 'test.'        
+        DOCKER_NAME_TEST_PREFIX = 'test.'    
+        DEV_MICROSERVICE_NETWORK = 'dev_microservice'
     }
 
     stages {  
+     
+        state('create microserver network - dev'){            
+            steps{
+                sh 'docker network create ${DEV_MICROSERVICE_NETWORK} || true'
+            }
+        }
+        
         stage('build identify.svc - dev') {
             when { 
                 changeset "identify.svc/**"
@@ -23,7 +31,7 @@ pipeline {
             steps {
                sh 'docker build -t ${IMAGE_NAME} -f identify.svc/Dockerfile.dev .'
                sh 'docker rm -f ${NAME} || true'
-               sh 'docker run -d --name ${NAME} -p ${PORT}:80 ${IMAGE_NAME}'
+               sh 'docker run -d --name ${NAME} --network ${DEV_MICROSERVICE_NETWORK} -p ${PORT}:80 ${IMAGE_NAME}'
             }
         }  
         
@@ -43,7 +51,7 @@ pipeline {
             steps {
                 sh 'docker build -t ${IMAGE_NAME} -f nginx/docker.nginx.dev .'
                 sh 'docker rm -f ${NAME} || true'
-                sh 'docker run -d --name ${NAME} -p ${PORT}:80 ${IMAGE_NAME}'
+                sh 'docker run -d --name ${NAME} --network ${DEV_MICROSERVICE_NETWORK} -p ${PORT}:80 ${IMAGE_NAME}'
             }
         }
     }
