@@ -30,7 +30,7 @@ pipeline {
 
         stage("setup nginx - dev"){
             when {
-                changeset "/nginx.config.dev"
+                changeset "nginx/*"
                 branch 'develop'
             }
 
