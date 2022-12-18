@@ -9,8 +9,7 @@ pipeline {
     }
 
     stages {  
-     
-        state('create microserver network - dev'){            
+        stage('create microserver network - dev'){            
             steps{
                 sh 'docker network create ${DEV_MICROSERVICE_NETWORK} || true'
             }
