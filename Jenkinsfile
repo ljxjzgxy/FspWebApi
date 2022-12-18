@@ -23,7 +23,7 @@ pipeline {
             steps {
                sh 'docker build -t ${IMAGE_NAME} -f identify.svc/Dockerfile.dev .'
                sh 'docker rm -f ${NAME} || true'
-               sh 'docker run -d --name ${INAME} -p $PORT:80 ${IMAGE_NAME}'
+               sh 'docker run -d --name ${NAME} -p $PORT:80 ${IMAGE_NAME}'
             }
         }   
     }
