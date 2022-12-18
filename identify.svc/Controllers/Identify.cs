@@ -14,7 +14,7 @@ namespace identify.svc.Controllers
             return new ApiResult<String>()
             {
                 Success = true,
-                Data = new String("Y")
+                Data = new String("Test")
 
             };
         }
