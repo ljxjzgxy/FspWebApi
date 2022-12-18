@@ -41,7 +41,7 @@ pipeline {
             }
 
             steps {
-                sh 'docker build -t ${IMAGE_NAME} -f nginx/nginx.config.dev .'
+                sh 'docker build -t ${IMAGE_NAME} -f nginx/docker.nginx.dev .'
                 sh 'docker rm -f ${NAME} || true'
                 sh 'docker run -d --name ${NAME} -p ${PORT}:80 ${IMAGE_NAME}'
             }
