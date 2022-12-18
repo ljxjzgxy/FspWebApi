@@ -6,7 +6,7 @@ namespace identify.svc.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Identify : ControllerBase
+    public class IdentifyController : ControllerBase
     {
         [HttpGet]
         public ActionResult<ApiResult<String>>  GetToken()
@@ -14,7 +14,7 @@ namespace identify.svc.Controllers
             return new ApiResult<String>()
             {
                 Success = true,
-                Data = new String("Hello world")
+                Data = new String("Hello world. Worlcup final, the king comes")
 
             };
         }
