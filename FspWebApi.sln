@@ -20,6 +20,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "automation", "automation", 
 		Jenkinsfile = Jenkinsfile
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nginx", "nginx", "{12D16411-4C11-49C2-A256-7B21762B02F1}"
+	ProjectSection(SolutionItems) = preProject
+		nginx\docker.nginx.dev = nginx\docker.nginx.dev
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "conf.dev", "conf.dev", "{6E69F215-528C-4267-BBC3-6C436FC91109}"
+	ProjectSection(SolutionItems) = preProject
+		nginx\conf.dev\nginx.conf = nginx\conf.dev\nginx.conf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "conf.d", "conf.d", "{A3103A73-F67C-4B9F-95EC-078B37B38D47}"
+	ProjectSection(SolutionItems) = preProject
+		nginx\conf.dev\conf.d\default.conf = nginx\conf.dev\conf.d\default.conf
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +69,8 @@ Global
 		{27C2BC48-39CF-4764-B662-3A1F0CEB301F} = {158580C5-1CA5-43E7-940D-B6614950DCC0}
 		{E924A280-D471-4AFA-92FC-D8ADD3A1267F} = {158580C5-1CA5-43E7-940D-B6614950DCC0}
 		{434100AE-21BF-4C12-BB1A-4FC01651987B} = {158580C5-1CA5-43E7-940D-B6614950DCC0}
+		{6E69F215-528C-4267-BBC3-6C436FC91109} = {12D16411-4C11-49C2-A256-7B21762B02F1}
+		{A3103A73-F67C-4B9F-95EC-078B37B38D47} = {6E69F215-528C-4267-BBC3-6C436FC91109}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E7B3507-764D-4753-84B1-6C9E39BD0200}
