@@ -37,7 +37,6 @@ pipeline {
 
         stage("setup nginx - dev"){
             when {
-                changeset "nginx/**"
                 branch 'develop'
             }
 
