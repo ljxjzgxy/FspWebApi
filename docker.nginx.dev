@@ -1,4 +1,5 @@
 FROM nginx:1.23.2
+
 COPY nginx.config.dev /etc/nginx/nginx.conf
 
 EXPOSE 80
