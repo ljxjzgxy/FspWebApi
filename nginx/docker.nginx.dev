@@ -1,4 +1,4 @@
-# CREATE nginx gate for DEV env
+# -------- CREATE nginx gate for DEV env ----------------
 
 FROM nginx:1.23.2
 RUN apt-get update && apt-get upgrade -y
