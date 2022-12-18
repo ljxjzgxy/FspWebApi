@@ -2,10 +2,9 @@ pipeline {
     agent any 
 
     environment { 
-        DOCKER_IMAGE_VERSION = 'v1.0.0'
-        DOCKER_NAME_DEV_PREFIX = 'dev.'
-        DOCKER_NAME_TEST_PREFIX = 'test.'
-        PORT = '8888'
+        APP_VERSION = 'v1.0.0'
+        DEV_PREFIX = 'dev.'
+        DOCKER_NAME_TEST_PREFIX = 'test.'        
     }
 
     stages {  
@@ -16,15 +15,36 @@ pipeline {
             }
 
             environment {
-                NAME = "${DOCKER_NAME_DEV_PREFIX}" + "identify.svc"                
-                IMAGE_NAME = "${NAME}:" + "${DOCKER_IMAGE_VERSION}" + "." + "${BUILD_ID}"
+                NAME = "${DEV_PREFIX}" + "identify.svc"                
+                IMAGE_NAME = "${NAME}:" + "${APP_VERSION}" + "." + "${BUILD_ID}"
+                PORT = '8888'
             }
 
             steps {
                sh 'docker build -t ${IMAGE_NAME} -f identify.svc/Dockerfile.dev .'
                sh 'docker rm -f ${NAME} || true'
-               sh 'docker run -d --name ${NAME} -p $PORT:80 ${IMAGE_NAME}'
+               sh 'docker run -d --name ${NAME} -p ${PORT}:80 ${IMAGE_NAME}'
             }
-        }   
+        }  
+        
+
+        stage("setup nginx - dev"){
+            when {
+                changeset "nginx.config.dev"
+                branch 'develop'
+            }
+
+            environment {
+                NAME = "${DEV_PREFIX}" + "ngx"             
+                IMAGE_NAME = "${NAME}:" + "${APP_VERSION}" + "." + "${BUILD_ID}"
+                PORT = '8800'
+            }
+
+            steps {
+                sh 'docker build -t ${IMAGE_NAME} -f nginx.config.dev .'
+                sh 'docker rm -f ${NAME} || true'
+                sh 'docker run -d --name ${NAME} -p ${PORT}:80 ${IMAGE_NAME}'
+            }
+        }
     }
 }

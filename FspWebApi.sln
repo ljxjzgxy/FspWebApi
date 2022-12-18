@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{15
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fsp.lib", "fsp.lib\fsp.lib.csproj", "{ADC705E2-6BC1-4CC6-9C0B-723C6A77871F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fsp.lib.test", "fsp.lib.test\fsp.lib.test.csproj", "{CFD9E649-6247-4DB1-9FC5-0D6CA352E269}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fsp.lib.test", "fsp.lib.test\fsp.lib.test.csproj", "{CFD9E649-6247-4DB1-9FC5-0D6CA352E269}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "logging.svc", "logging.svc\logging.svc.csproj", "{E924A280-D471-4AFA-92FC-D8ADD3A1267F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "logging.svc", "logging.svc\logging.svc.csproj", "{E924A280-D471-4AFA-92FC-D8ADD3A1267F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "logging.daemon", "logging.daemon\logging.daemon.csproj", "{434100AE-21BF-4C12-BB1A-4FC01651987B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "logging.daemon", "logging.daemon\logging.daemon.csproj", "{434100AE-21BF-4C12-BB1A-4FC01651987B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "automation", "automation", "{AD2A64BF-FC18-4262-9578-EC39C97844A3}"
 	ProjectSection(SolutionItems) = preProject
