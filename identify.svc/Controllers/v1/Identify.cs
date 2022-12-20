@@ -13,7 +13,7 @@ public class IdentifyController : ApiControllerBaseV1
         return new ApiResult<string>()
         {
             Success = true,
-            Message = "test auto deploy",
+            Message = "test auto deploy 02",
             Data = _jwtOption.Value.Key
 
         };
