@@ -8,7 +8,7 @@ pipeline {
         DEV_MICROSERVICE_NETWORK = 'dev_microservice'
     }
 
-    stages {  
+    stages {       
         stage('create microserver network - dev'){            
             steps{
                 sh 'docker network create ${DEV_MICROSERVICE_NETWORK} || true'
@@ -16,21 +16,42 @@ pipeline {
         }
         
         stage('build identify.svc - dev') {
-            when { 
-                changeset "identify.svc/**"
-                branch 'develop'
-            }
-
             environment {
-                NAME = "${DEV_PREFIX}" + "identify.svc"                
+                SVC_NAME = "identify.svc"
+                NAME = "${DEV_PREFIX}" + "${SVC_NAME}"                
                 IMAGE_NAME = "${NAME}:" + "${APP_VERSION}" + "." + "${BUILD_ID}"
                 PORT = '8888'
             }
 
+            when { 
+                changeset "${SVC_NAME}/**"
+                branch 'develop'
+            }           
+
             steps {
-               sh 'docker build -t ${IMAGE_NAME} -f identify.svc/Dockerfile.dev .'
-               sh 'docker rm -f ${NAME} || true'
-               sh 'docker run -d --name ${NAME} --network ${DEV_MICROSERVICE_NETWORK} -p ${PORT}:80 ${IMAGE_NAME}'
+                 sh '''
+                    APPSETTINGS_JSON_FILE="/etc/aspnet_appsettings/${SVC_NAME}/appsettings.json"
+                    if [ -f "$APPSETTINGS_JSON_FILE" ]; then
+                        echo "File ${APPSETTINGS_JSON_FILE} found..."
+                    else
+                        echo "Error: File ${APPSETTINGS_JSON_FILE} not found. Can not continue."
+                        exit 1
+                    fi
+
+                    APPSETTINGS_DEV_JSON_FILE="/etc/aspnet_appsettings/${SVC_NAME}/appsettings.Development.json"
+                    if [ ! -f "$APPSETTINGS_DEV_JSON_FILE" ]; then
+                      echo "Error: File ${APPSETTINGS_JSON_FILE} not found. Can not continue."
+                      exit 1
+                    else
+                        echo "File ${APPSETTINGS_DEV_JSON_FILE} found..."
+                    fi
+
+                    cp $APPSETTINGS_DEV_JSON_FILE .
+
+                    docker build -t ${IMAGE_NAME} -f ${SVC_NAME}/Dockerfile.dev .
+                    docker rm -f ${NAME} || true
+                    docker run -d --name ${NAME} --network ${DEV_MICROSERVICE_NETWORK} -p ${PORT}:80 ${IMAGE_NAME}
+                '''             
             }
         }  
         
@@ -47,9 +68,11 @@ pipeline {
             }
 
             steps {
-                sh 'docker build -t ${IMAGE_NAME} -f nginx/docker.nginx.dev .'
-                sh 'docker rm -f ${NAME} || true'
-                sh 'docker run -d --name ${NAME} --network ${DEV_MICROSERVICE_NETWORK} -p ${PORT}:80 ${IMAGE_NAME}'
+                sh '''
+                    docker build -t ${IMAGE_NAME} -f nginx/docker.nginx.dev .
+                    docker rm -f ${NAME} || true
+                    docker run -d --name ${NAME} --network ${DEV_MICROSERVICE_NETWORK} -p ${PORT}:80 ${IMAGE_NAME}
+                ''' 
             }
         }
     }
