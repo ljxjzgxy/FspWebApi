@@ -6,7 +6,7 @@ pipeline {
         DEV_MICROSERVICE_NETWORK = 'dev_microservice'
 
         DEV = 'dev'
-        DEV_PREFIX = "${DEV}" + "dev."
+        DEV_PREFIX = "${DEV}" + "."
         DOCKER_FILE_DEV = "Dockerfile.dev"
 
         TEST = "test"
