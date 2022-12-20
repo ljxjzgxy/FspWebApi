@@ -18,7 +18,7 @@ RUN dotnet build "identify.svc.csproj" -c Release -o /app/build
 FROM build AS publish
 RUN dotnet publish "identify.svc.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-RUN cp /etc/aspnet_appsettings/identify.svc/ .  
+COPY /etc/aspnet_appsettings/identify.svc/ .  
 
 FROM base AS final
 WORKDIR /app
