@@ -46,7 +46,8 @@ pipeline {
                         echo "File ${APPSETTINGS_DEV_JSON_FILE} found..."
                     fi
 
-                    cp $APPSETTINGS_DEV_JSON_FILE .
+                    cp $APPSETTINGS_JSON_FILE ./{SVC_NAME}
+                    cp APPSETTINGS_DEV_JSON_FILE ./{SVC_NAME}
 
                     docker build -t ${IMAGE_NAME} -f ${SVC_NAME}/Dockerfile.dev .
                     docker rm -f ${NAME} || true
