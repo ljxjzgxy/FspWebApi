@@ -3,9 +3,19 @@ pipeline {
 
     environment { 
         APP_VERSION = 'v1.0.0'
-        DEV_PREFIX = 'dev.'
-        DOCKER_NAME_TEST_PREFIX = 'test.'    
         DEV_MICROSERVICE_NETWORK = 'dev_microservice'
+
+        DEV = 'dev'
+        DEV_PREFIX = "${DEV}" + "dev."
+        DOCKER_FILE_DEV = "Dockerfile.dev"
+
+        TEST = "test"
+        TEST_PREFIX = 'test.'    
+       
+        APP_SETTINGS_DIR_ROOT = "/etc/aspnetcore_appsettings"
+        APPSETTTINGS_JSON = "appsettings.json"
+        APPSETTTINGS_DEV_JSON = "appsettings.Development.json"
+        APPSETTINGS_TEST_JSON = "appsettings.Test.json"
     }
 
     stages {       
@@ -30,7 +40,7 @@ pipeline {
 
             steps {
                  sh '''
-                    APPSETTINGS_JSON_FILE="/etc/aspnet_appsettings/${SVC_NAME}/appsettings.json"
+                    APPSETTINGS_JSON_FILE="${APP_SETTINGS_DIR_ROOT}/${DEV}/${SVC_NAME}/${APPSETTTINGS_JSON}"
                     if [ -f "$APPSETTINGS_JSON_FILE" ]; then
                         echo "File ${APPSETTINGS_JSON_FILE} found..."
                     else
@@ -38,7 +48,7 @@ pipeline {
                         exit 1
                     fi
 
-                    APPSETTINGS_DEV_JSON_FILE="/etc/aspnet_appsettings/${SVC_NAME}/appsettings.Development.json"
+                    APPSETTINGS_DEV_JSON_FILE="${APP_SETTINGS_DIR_ROOT}/${DEV}/${SVC_NAME}/${APPSETTTINGS_DEV_JSON}"
                     if [ ! -f "$APPSETTINGS_DEV_JSON_FILE" ]; then
                       echo "Error: File ${APPSETTINGS_JSON_FILE} not found. Can not continue."
                       exit 1
@@ -49,7 +59,7 @@ pipeline {
                     cp $APPSETTINGS_JSON_FILE ./{SVC_NAME}
                     cp $APPSETTINGS_DEV_JSON_FILE ./{SVC_NAME}
 
-                    docker build -t ${IMAGE_NAME} -f ${SVC_NAME}/Dockerfile.dev .
+                    docker build -t ${IMAGE_NAME} -f ${SVC_NAME}/${DOCKER_FILE_DEV} .
                     docker rm -f ${NAME} || true
                     docker run -d --name ${NAME} --network ${DEV_MICROSERVICE_NETWORK} -p ${PORT}:80 ${IMAGE_NAME}
                 '''             
