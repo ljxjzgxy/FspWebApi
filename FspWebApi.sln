@@ -23,7 +23,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nginx", "nginx", "{12D16411-4C11-49C2-A256-7B21762B02F1}"
 	ProjectSection(SolutionItems) = preProject
 		nginx\docker.nginx.dev = nginx\docker.nginx.dev
-		index.html = index.html
+		nginx\index.html = nginx\index.html
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "conf.dev", "conf.dev", "{6E69F215-528C-4267-BBC3-6C436FC91109}"
