@@ -24,7 +24,7 @@ pipeline {
             }
 
             when { 
-                changeset "${SVC_NAME}/**"
+                changeset "identify.svc/**"
                 branch 'develop'
             }           
 
