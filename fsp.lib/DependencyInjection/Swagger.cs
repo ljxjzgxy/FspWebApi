@@ -77,7 +77,7 @@ namespace fsp.lib.DependencyInjection
             {
                 foreach (var version in typeof(ApiVersions).GetEnumNames())
                 {
-                    options.SwaggerEndpoint($"api/{version}/swagger.json", $"{version}");
+                    options.SwaggerEndpoint($"{version}/swagger.json", $"{version}");
                 }
             });
         }
