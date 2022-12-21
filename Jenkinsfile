@@ -26,16 +26,16 @@ pipeline {
             }
         }
         
-        stage('build identify.svc - dev') {
+        stage('build identity.svc - dev') {
             environment {
-                SVC_NAME = "identify.svc"
+                SVC_NAME = "identity.svc"
                 CONTAINER_NAME = "${DEV_PREFIX}" + "${SVC_NAME}"                
                 IMAGE_NAME = "${CONTAINER_NAME}:" + "${APP_VERSION}" + "." + "${BUILD_ID}"
                 PORT = '8888'
             }
 
             when { 
-                changeset "identify.svc/**"
+                changeset "identity.svc/**"
                 branch 'develop'
             }           
 

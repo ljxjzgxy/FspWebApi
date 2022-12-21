@@ -1,6 +1,7 @@
 using System.Reflection;
 using fsp.lib;
 using fsp.lib.Configuration;
+using fsp.lib.crypto;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,8 @@ builder.Services.AddCustomSwagger($"{Assembly.GetExecutingAssembly().GetName().N
 builder.Services.Configure<JwtOptions>(
     builder.Configuration.GetSection(nameof(JwtOptions))
 );
+
+builder.Services.AddSingleton<ICrypto, Crypto>();
 
 var app = builder.Build();
 

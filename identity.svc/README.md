@@ -1,6 +1,7 @@
 ## Changelog v1.1.0
 - [x] Clear docker images older than 48h
 - [x] fix jenkins file post syntax
+- [x] change identify to identity for all releated parts
 
 
 

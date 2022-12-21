@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "identify.svc": {
+    "identity.svc": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
