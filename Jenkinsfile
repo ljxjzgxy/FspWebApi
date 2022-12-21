@@ -86,12 +86,12 @@ pipeline {
                     docker run -d --name ${CONTAINER_NAME} --network ${DEV_MICROSERVICE_NETWORK} -p ${PORT}:80 ${IMAGE_NAME}
                 ''' 
             }
-        }
+        }       
+    }
 
-        post{
-            always{
-                sh 'docker image prune --all --filter until=48h -f'
-            }
+    post{
+        always{
+            sh 'docker image prune --all --filter until=48h -f'
         }
     }
 }
