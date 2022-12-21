@@ -2,7 +2,7 @@ pipeline {
     agent any 
 
     environment { 
-        APP_VERSION = 'v1.0.0'
+        APP_VERSION = 'v1.1.0'
         DEV_MICROSERVICE_NETWORK = 'dev_microservice'
 
         DEV = 'dev'
@@ -10,9 +10,10 @@ pipeline {
         DOCKER_FILE_DEV = "Dockerfile.dev"
 
         TEST = "test"
-        TEST_PREFIX = 'test.'    
+        TEST_PREFIX = "${TEST}" + '.'    
        
         APP_SETTINGS_DIR_ROOT = "/etc/aspnetcore_appsettings"
+
         APPSETTTINGS_JSON = "appsettings.json"
         APPSETTTINGS_DEV_JSON = "appsettings.Development.json"
         APPSETTINGS_TEST_JSON = "appsettings.Test.json"
@@ -28,8 +29,8 @@ pipeline {
         stage('build identify.svc - dev') {
             environment {
                 SVC_NAME = "identify.svc"
-                NAME = "${DEV_PREFIX}" + "${SVC_NAME}"                
-                IMAGE_NAME = "${NAME}:" + "${APP_VERSION}" + "." + "${BUILD_ID}"
+                CONTAINER_NAME = "${DEV_PREFIX}" + "${SVC_NAME}"                
+                IMAGE_NAME = "${CONTAINER_NAME}:" + "${APP_VERSION}" + "." + "${BUILD_ID}"
                 PORT = '8888'
             }
 
@@ -60,8 +61,8 @@ pipeline {
                     cp $APPSETTINGS_DEV_JSON_FILE ./${SVC_NAME}
 
                     docker build -t ${IMAGE_NAME} -f ${SVC_NAME}/${DOCKER_FILE_DEV} .
-                    docker rm -f ${NAME} || true
-                    docker run -d --name ${NAME} --network ${DEV_MICROSERVICE_NETWORK} -p ${PORT}:80 ${IMAGE_NAME}
+                    docker rm -f ${CONTAINER_NAME} || true
+                    docker run -d --name ${CONTAINER_NAME} --network ${DEV_MICROSERVICE_NETWORK} -p ${PORT}:80 ${IMAGE_NAME}
                 '''             
             }
         }  
@@ -73,17 +74,23 @@ pipeline {
             }
 
             environment {
-                NAME = "${DEV_PREFIX}" + "ngx"             
-                IMAGE_NAME = "${NAME}:" + "${APP_VERSION}" + "." + "${BUILD_ID}"
+                CONTAINER_NAME = "${DEV_PREFIX}" + "ngx"             
+                IMAGE_NAME = "${CONTAINER_NAME}:" + "${APP_VERSION}" + "." + "${BUILD_ID}"
                 PORT = '8800'
             }
 
             steps {
                 sh '''
                     docker build -t ${IMAGE_NAME} -f nginx/docker.nginx.dev .
-                    docker rm -f ${NAME} || true
-                    docker run -d --name ${NAME} --network ${DEV_MICROSERVICE_NETWORK} -p ${PORT}:80 ${IMAGE_NAME}
+                    docker rm -f ${CONTAINER_NAME} || true
+                    docker run -d --name ${CONTAINER_NAME} --network ${DEV_MICROSERVICE_NETWORK} -p ${PORT}:80 ${IMAGE_NAME}
                 ''' 
+            }
+        }
+
+        post{
+            always{
+                sh 'docker image prune --all --filter until=48h -f'
             }
         }
     }
