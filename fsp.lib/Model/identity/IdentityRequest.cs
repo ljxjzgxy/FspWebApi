@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace identity.svc.Model;
+namespace fsp.lib.Model.identity;
 
-public class identityRequest
+public class IdentityRequest
 {
     [Required]
     public string? UserId { get; set; }
 
     [Required]
-    public string? Password { get; set;}
+    public string? Password { get; set; }
 }
