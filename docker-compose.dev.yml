@@ -62,7 +62,7 @@ services:
     networks:
       - dev_network
     ports:
-      - 8801:80
+      - 8800:80
     depends_on:
       - identity
 

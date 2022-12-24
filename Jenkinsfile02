@@ -13,4 +13,10 @@ pipeline {
             }
         }        
     }
+
+     post{
+        always{
+            sh 'docker image prune --all --filter until=48h -f'
+        }
+    }
 }
