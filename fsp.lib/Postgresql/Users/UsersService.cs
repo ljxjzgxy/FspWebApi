@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using fsp.lib.crypto;
-using fsp.lib.Database;
 using NpgsqlTypes;
 
 namespace fsp.lib.Postgresql.Users;

@@ -1,8 +1,7 @@
-﻿
-using Npgsql;
+﻿using Npgsql;
 using NpgsqlTypes;
 
-namespace fsp.lib.Database;
+namespace fsp.lib.Postgresql;
 public interface IDbPostgresql
 {
     public Task Prepare(string sql = "");

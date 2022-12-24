@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.Options;
 using Npgsql;
 using NpgsqlTypes;
+using fsp.lib.Appsettings;
 
-using fsp.lib.Configuration;
-
-namespace fsp.lib.Database;
+namespace fsp.lib.Postgresql;
 
 public class DbPostgresql : IDbPostgresql, IDisposable
 {
@@ -55,7 +54,7 @@ public class DbPostgresql : IDbPostgresql, IDisposable
 
     public async Task<object?> ExecuteScalarAsync()
     {
-        return await _cmd!.ExecuteScalarAsync();     
+        return await _cmd!.ExecuteScalarAsync();
     }
 
     public async Task<int> ExecuteNonQueryAsync()
@@ -66,7 +65,7 @@ public class DbPostgresql : IDbPostgresql, IDisposable
 
     public void Dispose()
     {
-        this.Dispose(true);
+        Dispose(true);
         GC.SuppressFinalize(this);
     }
     protected virtual void Dispose(bool disposing)

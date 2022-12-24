@@ -1,4 +1,4 @@
-﻿namespace fsp.lib.Configuration;
+﻿namespace fsp.lib.Appsettings;
 
 public class PostgresqlSettings
 {

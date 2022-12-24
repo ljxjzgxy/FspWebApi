@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace fsp.lib.Jwt;
-public interface IJwtService
+namespace fsp.lib.Appsettings;
+public class RedisSettings
 {
-    public string GenerateToken(string UserId);
+    public string? ConnectionString { get; set; }
 }

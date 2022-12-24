@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using fsp.lib.Configuration;
+using fsp.lib.Appsettings;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
