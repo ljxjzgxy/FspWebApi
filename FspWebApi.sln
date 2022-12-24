@@ -16,13 +16,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "automation", "automation", "{AD2A64BF-FC18-4262-9578-EC39C97844A3}"
 	ProjectSection(SolutionItems) = preProject
 		Jenkinsfile = Jenkinsfile
-		docker-compose.yml = docker-compose.yml
+		docker-compose.dev.yml = docker-compose.dev.yml
+		Jenkinsfile02.dev = Jenkinsfile02.dev
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nginx", "nginx", "{12D16411-4C11-49C2-A256-7B21762B02F1}"
 	ProjectSection(SolutionItems) = preProject
-		nginx\docker.nginx.dev = nginx\docker.nginx.dev
 		nginx\index.html = nginx\index.html
+		nginx\Dockerfile.dev = nginx\Dockerfile.dev
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "conf.dev", "conf.dev", "{6E69F215-528C-4267-BBC3-6C436FC91109}"
@@ -50,6 +51,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "identity.svc", "identity.svc\identity.svc.csproj", "{5A5BAF04-C54A-4055-9F72-CD1203A45FD7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "session.svc.pri", "session.svc.pri\session.svc.pri.csproj", "{7B9A652D-D883-4A8C-A6C3-F449A46CE458}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "redis", "redis", "{79C16448-7FB8-4D5A-88A0-9F83BD70CA5B}"
+	ProjectSection(SolutionItems) = preProject
+		redis\Dockerfile.dev = redis\Dockerfile.dev
+		redis\redis.conf = redis\redis.conf
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +104,7 @@ Global
 		{A3103A73-F67C-4B9F-95EC-078B37B38D47} = {6E69F215-528C-4267-BBC3-6C436FC91109}
 		{5A5BAF04-C54A-4055-9F72-CD1203A45FD7} = {158580C5-1CA5-43E7-940D-B6614950DCC0}
 		{7B9A652D-D883-4A8C-A6C3-F449A46CE458} = {158580C5-1CA5-43E7-940D-B6614950DCC0}
+		{79C16448-7FB8-4D5A-88A0-9F83BD70CA5B} = {BD2BB885-9324-4B9D-82D7-230EAF706645}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E7B3507-764D-4753-84B1-6C9E39BD0200}

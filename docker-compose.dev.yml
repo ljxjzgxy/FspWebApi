@@ -7,8 +7,8 @@ services:
       dockerfile: identity.svc/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-    expose:
-      - 80
+    networks:
+      - dev_network
     ports:
       - 8888:80
     depends_on:
@@ -16,43 +16,51 @@ services:
       - postgresql
 
   session:
-    image: dev.session.svc.pri:v1.2
+    image: dev.session.svc.pri:v1.1
     container_name: dev.session.svc.pri
     build:
       context: ./
       dockerfile: session.svc.pri/Dockerfile
-    expose:
-      - 80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - dev_network
     ports:
       - 7002:80
     depends_on:
       - redis
    
   redis:
-    image: redis:7.0.5
+    image: dev.redis:v1.1
     container_name: dev.redis
+    build:
+      context: ./
+      dockerfile: redis/Dockerfile.dev
+    networks:
+      - dev_network
     ports:
       - 6380:6379
-
 
   postgresql:
     image: postgres:15.1
     container_name: dev.postgresql
     environment:
       POSTGRES_PASSWORD: user
+    networks:
+      - dev_network
     ports:
       - 5433:5432
     volumes:
       - postgres:/var/lib/postgresql/data 
 
   nginx:
-    image: ngx-gate:v1.1
-    container_name: ngx-gate
+    image: dev.ngx-gate:v1.1
+    container_name: dev.ngx-gate
     build:
       context: ./
-      dockerfile: nginx/docker.nginx.dev
-    expose:
-      - 80
+      dockerfile: nginx/Dockerfile.dev
+    networks:
+      - dev_network
     ports:
       - 8801:80
     depends_on:
@@ -60,6 +68,9 @@ services:
 
 volumes:
     postgres:
+
+networks:
+  dev_network:
 
 
     

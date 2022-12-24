@@ -1,0 +1,16 @@
+pipeline {
+    agent any     
+
+    stages { 
+        stage('docker compose up - dev') {     
+             when { 
+                branch 'develop'
+            }       
+            steps {
+                 sh '''                  
+                    docker-compose -f docker-compose.dev.yml up -d
+                '''             
+            }
+        }        
+    }
+}

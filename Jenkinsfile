@@ -81,7 +81,7 @@ pipeline {
 
             steps {
                 sh '''
-                    docker build -t ${IMAGE_NAME} -f nginx/docker.nginx.dev .
+                    docker build -t ${IMAGE_NAME} -f nginx/Dockerfile.dev .
                     docker rm -f ${CONTAINER_NAME} || true
                     docker run -d --name ${CONTAINER_NAME} --network ${DEV_MICROSERVICE_NETWORK} -p ${PORT}:80 ${IMAGE_NAME}
                 ''' 
