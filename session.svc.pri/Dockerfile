@@ -7,6 +7,7 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["session.svc.pri/session.svc.pri.csproj", "session.svc.pri/"]
+COPY ["fsp.lib/fsp.lib.csproj", "fsp.lib/"]
 RUN dotnet restore "session.svc.pri/session.svc.pri.csproj"
 COPY . .
 WORKDIR "/src/session.svc.pri"

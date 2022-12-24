@@ -16,6 +16,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "automation", "automation", "{AD2A64BF-FC18-4262-9578-EC39C97844A3}"
 	ProjectSection(SolutionItems) = preProject
 		Jenkinsfile = Jenkinsfile
+		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nginx", "nginx", "{12D16411-4C11-49C2-A256-7B21762B02F1}"
