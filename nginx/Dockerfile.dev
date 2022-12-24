@@ -1,7 +1,6 @@
 # -------- CREATE nginx gate for DEV env ----------------
 
 FROM nginx:1.23.2
-RUN apt-get update && apt-get upgrade -y
 
 RUN rm /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf 
 
