@@ -41,7 +41,7 @@ public class IdentityController : ApiControllerBaseV1
             SessionData sessionData = new SessionData();
             sessionData.UserId = UserId;
             sessionData.Token = token;
-            await _apiHelper.PostApi(_serviceUriInternal.SessionSvc!,sessionData);
+            await _apiHelper.PostApi<SessionData>(_serviceUriInternal.SessionSvc!,sessionData);
 
             IdentityResponse response = new IdentityResponse();
             response.token = token;      

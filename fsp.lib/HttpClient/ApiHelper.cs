@@ -5,28 +5,32 @@ using RestSharp;
 namespace fsp.lib.HttpClient;
 public class ApiHelper : IApiHelper
 {
+    private readonly RestClient _client;
+    public ApiHelper()
+    {
+        _client = new RestClient();
+    }
     public async Task<string?> GetApi(string URI, Dictionary<string,object> requestBody)
     {
-        var client = new RestClient(URI);
+        _client.Options.BaseUrl = new Uri(URI);
         var request = new RestRequest(string.Empty, Method.Get);         
         foreach(var kv in requestBody)
         {
             request.AddParameter(kv.Key,kv.Value,ParameterType.QueryString);
         }       
 
-        var response = await client.ExecuteAsync(request);
+        var response = await _client.ExecuteAsync(request);
         var content = response.Content;
         return content;
     }
 
-    public async Task<string?> PostApi(string URI, object requestBody)
+    public async Task<string?> PostApi<T>(string URI, T requestBody) where T: class
     {
-        var client = new RestClient(URI);
-        var request = new RestRequest(string.Empty, Method.Post);
-        request.AddHeader("Content-Type", "application/json");
-        request.AddParameter("application/json", requestBody,ParameterType.RequestBody);
+        _client.Options.BaseUrl = new Uri(URI);
+        var request = new RestRequest(string.Empty, Method.Post);      
+        request.AddJsonBody<T>(requestBody);
 
-        var response = await client.ExecuteAsync(request);
+        var response = await _client.ExecuteAsync(request);
         var content = response.Content;
         return content;
     }

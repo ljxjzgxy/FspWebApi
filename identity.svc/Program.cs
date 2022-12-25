@@ -22,7 +22,7 @@ builder.Services.AddTransient<IDbPostgresql, DbPostgresql>();
 builder.Services.AddSingleton<ICrypto, Crypto>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IUsersService, UsersService>();
-builder.Services.AddScoped<IApiHelper, ApiHelper>();
+builder.Services.AddSingleton<IApiHelper, ApiHelper>();
 
 
 var app = builder.Build();
