@@ -10,14 +10,11 @@ public class ApiHelper : IApiHelper
     {
         _client = new RestClient();
     }
-    public async Task<string?> GetApi(string URI, Dictionary<string,object> requestBody)
+    public async Task<string?> GetApi<T>(string URI, T requestBody) where T: class
     {
         _client.Options.BaseUrl = new Uri(URI);
-        var request = new RestRequest(string.Empty, Method.Get);         
-        foreach(var kv in requestBody)
-        {
-            request.AddParameter(kv.Key,kv.Value,ParameterType.QueryString);
-        }       
+        var request = new RestRequest(string.Empty, Method.Get);
+        request.AddObject<T>(requestBody);
 
         var response = await _client.ExecuteAsync(request);
         var content = response.Content;

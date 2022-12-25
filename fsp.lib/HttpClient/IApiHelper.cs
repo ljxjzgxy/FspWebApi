@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 namespace fsp.lib.HttpClient;
 public interface IApiHelper
 {
-    public Task<string?> GetApi(string URI, Dictionary<string, object> requestBody);
+    public Task<string?> GetApi<T>(string URI,T requestBody) where T: class;
     public Task<string?> PostApi<T>(string URI, T requestBody) where T : class;
 }
