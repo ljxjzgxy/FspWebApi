@@ -4,6 +4,7 @@ using fsp.lib.Appsettings;
 using fsp.lib.crypto;
 using fsp.lib.HttpClient;
 using fsp.lib.Jwt;
+using fsp.lib.Middleware;
 using fsp.lib.Postgresql;
 using fsp.lib.Postgresql.Users;
 
@@ -13,7 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddCustomSwagger($"{Assembly.GetExecutingAssembly().GetName().Name}");
+var assemblyName = $"{Assembly.GetExecutingAssembly().GetName().Name}";
+builder.Services.AddCustomSwagger(assemblyName);
 
 builder.Services.Configure<ServiceUriInternal>(builder.Configuration.GetSection(nameof(ServiceUriInternal)));
 builder.Services.Configure<PostgresqlSettings>(builder.Configuration.GetSection(nameof(PostgresqlSettings)));
@@ -23,6 +25,7 @@ builder.Services.AddSingleton<ICrypto, Crypto>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddSingleton<IApiHelper, ApiHelper>();
+builder.Logging.AddMongoDbLogger();
 
 
 var app = builder.Build();
@@ -33,7 +36,9 @@ if (app.Environment.IsDevelopment() || app.Environment.IsTest())
     app.UseCustomSwaggerUI();
 }
 
-app.UseAuthorization();
+app.UseMiddleware<LoggingMiddleware>();
+
+//app.UseAuthorization();
 
 app.MapControllers();
 

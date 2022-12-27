@@ -14,6 +14,7 @@ services:
     depends_on:
       - session
       - postgresql
+      - mongodb
 
   session:
     image: dev.session.svc.pri:v1.1
@@ -29,6 +30,7 @@ services:
       - 7002:80
     depends_on:
       - redis
+      - mongodb
    
   redis:
     image: dev.redis:v1.1
@@ -66,8 +68,24 @@ services:
     depends_on:
       - identity
 
+  mongodb:
+    image: mongo:4.4.17
+    container_name: dev.mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: user
+    networks:
+      - dev_network
+    ports:
+      - 27018:27017
+    volumes:
+      - mongodb:/data/db   
+      - mongo_config:/data/configdb
+
 volumes:
     postgres:
+    mongodb:
+    mongo_config:
 
 networks:
   dev_network:
