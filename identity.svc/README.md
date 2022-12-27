@@ -3,6 +3,7 @@
 - [x] fix jenkins file post syntax
 - [x] change identify to identity for all releated parts
 - [x] docker compose for dev env
+- [x] logging to mongodb
 
 
 
