@@ -32,9 +32,18 @@ public class LoggingMiddleware
         }
 
         var UserAgent = context.Request.Headers["User-Agent"];
+        var reqInfo = $"{User}█{IPAddress}█{Scheme}://{Host}{Path}█{sbRoutes}█{UserAgent}";
 
-        _logger.LogInformation($"{User}█{IPAddress}█{Scheme}://{Host}{Path}█{sbRoutes}█{UserAgent}");        
+        _logger.LogInformation(reqInfo);
 
-        await _next(context);
+        try
+        {
+            await _next(context);        
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, reqInfo);
+        }
+     
     }
 }

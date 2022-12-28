@@ -32,7 +32,7 @@ public class IdentityController : ApiControllerBaseV1
     public async Task<ActionResult<ApiResult<IdentityResponse>>> IssueToken(IdentityRequest request)
     {
         var UserId = request.UserId??"";
-        var Password = request.Password??"";
+        var Password = request.Password??"";       
 
         if (request?.UserId !=null &&  await _usersService.CheckPassword(UserId, Password!))
         {           

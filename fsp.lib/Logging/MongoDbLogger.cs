@@ -79,8 +79,8 @@ public sealed class MongoDbLogger : ILogger
         var config = _getCurrentConfig();
 
         if (config.logLevel.Count == 0 && logLevel >= LogLevel.Information) return true;
-        if (_getCurrentConfig().logLevel.Any(x => x.Key == _name && x.Value <= logLevel)) return true;
-        if (_getCurrentConfig().logLevel.Any(x => x.Key == "Default" && x.Value <= logLevel)) return true;
+        if (config.logLevel.Any(x => x.Key == _name && x.Value <= logLevel)) return true;
+        if (config.logLevel.Any(x => x.Key == "Default" && x.Value <= logLevel)) return true;
 
         return false;
     }
@@ -104,24 +104,31 @@ public sealed class MongoDbLogger : ILogger
             var loggingData = new LoggingData();
             var message = $"{formatter(state, exception)}";
             var fields = message.Split("█");
-
+          
             loggingData.Loglevel = $"{logLevel}";
             loggingData.Environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")??"unset";
             loggingData.Service = _assemblyName;
             loggingData.Category = _name;
-            if(fields.Length  == 1)
-            {
-                loggingData.Message = message;
-            }
-            else
-            {
+            if(fields.Length  > 1)
+            {  
                 loggingData.UserId = fields[0];
                 loggingData.IPAddress = fields[1];
                 loggingData.RequestAddress = fields[2];
                 loggingData.Routes = fields[3];
                 loggingData.UserAgent = fields[4];              
             }
-            
+            else
+            {
+                loggingData.Message = message;
+            }
+
+            if (exception != null)
+            {
+                var preMess = string.IsNullOrWhiteSpace(loggingData.Message) ? "" : $"***{ loggingData.Message}***,"; 
+                var exceptionMess = $"Exception: {exception.Message} ---> {exception.StackTrace}";
+                loggingData.Message = string.IsNullOrWhiteSpace(preMess) ? exceptionMess : preMess + exceptionMess;
+            }
+
 
             loggingData.LogDate = DateTime.Now;
 
