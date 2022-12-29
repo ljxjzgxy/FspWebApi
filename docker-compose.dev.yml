@@ -31,6 +31,21 @@ services:
     depends_on:
       - redis
       - mongodb
+
+  monitor:
+    image: dev.monitor.svc.pri:v1.1
+    container_name: dev.monitor.svc.pri
+    build:
+      context: ./
+      dockerfile: monitor.svc.pri/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - dev_network
+    ports:
+      - 7003:80
+    depends_on:
+      - mongodb
    
   redis:
     image: dev.redis:v1.1

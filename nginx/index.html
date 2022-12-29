@@ -15,11 +15,22 @@
     </style>
 </head>
 <body>
- <div style="text-align:center;margin-top:5rem;">
-     <h1>Nginx gateway - Service APIs</h1>
-     <div>
-         <span>identity svc </span> - <a href="http://192.168.1.161:8800/identity/api/v1/identity">API Endpoint</a> <a href="http://192.168.1.161:8800/identity/Swagger/index.html"> Swagger</a>
-     </div>
- </div>
+    <div style="margin-top:1rem;">
+        <h1>Nginx gateway - Service APIs</h1>
+        <div><h3>External</h3></div>
+        <div>
+            <span>identity.svc </span> - <a href="http://192.168.1.161:8800/identity/Swagger/index.html" target="_blank"> Swagger</a> <a href="http://192.168.1.161:8800/identity/api/v1/identity" target="_blank">Endpoint</a>
+        </div>
+        <br />
+        <div><hr /></div>
+        <br />
+        <div><h3>Internal</h3></div>
+        <div>
+            <span>session.svc.pri </span> - <a href="http://192.168.1.161:7002/Swagger/index.html" target="_blank"> Swagger</a> <a href="http://192.168.1.161:7002/api/v1/logging" target="_blank">Endpoint</a>
+        </div>
+        <div>
+            <span>logging.svc.pri </span> - <a href="http://192.168.1.161:7003/Swagger/index.html" target="_blank"> Swagger</a> <a href="http://192.168.1.161:7003/api/v1/logging" target="_blank">Endpoint</a>
+        </div>
+    </div>
 </body>
 </html>
