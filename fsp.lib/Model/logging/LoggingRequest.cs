@@ -17,7 +17,7 @@ public record LoggingRequest
     public string? UserAgent { get; set; }
     public string? Message { get; set; }
 
-    public int PageInex { get; set; } = 1;
+    public int PageIndex { get; set; } = 1;
     public int PageSize { get; set; } = 100;
   
 }

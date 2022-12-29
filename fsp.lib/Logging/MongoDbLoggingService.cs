@@ -43,7 +43,7 @@ public class MongoDbLoggingService : IMongoDbLoggingService
         if (!string.IsNullOrEmpty(request.UserAgent)) filter &= builder.Regex(nameof(request.UserAgent), request.UserAgent);
         if (!string.IsNullOrEmpty(request.Message)) filter &= builder.Regex(nameof(request.Message), request.Message);
 
-        var SkipCount = (request.PageInex - 1) * request.PageSize;
+        var SkipCount = (request.PageIndex - 1) * request.PageSize;
 
         var sort = Builders<LoggingData>.Sort.Descending("LogDate");  
         return await _loggingsCollection.Find(filter).Skip(SkipCount).Limit(request.PageSize).Sort(sort).ToListAsync();
