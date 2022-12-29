@@ -17,7 +17,7 @@ public class LoggingController : ApiControllerBaseV1
     }
 
 
-    [HttpPost]
+    [HttpPut]
     public async Task<ActionResult<ApiResult<List<LoggingData>>>> Post(LoggingRequest request)
     {
         return Ok(new ApiResult<List<LoggingData>>
