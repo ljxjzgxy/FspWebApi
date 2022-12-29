@@ -1,28 +1,19 @@
 ﻿using System.Collections.Concurrent;
 using System.Reflection;
 using System.Runtime.Versioning;
+using fsp.lib.Appsettings;
 using fsp.lib.Model.logging;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
 using Microsoft.Extensions.Options;
 
-namespace fsp.lib.Logging;
-
-
-public class Database
-{
-    public string ConnectionString { get; set; } = "";
-    public string DbName { get; set; } = "";
-    public string CollectionName { get; set; } = "";
-
-}
-
+namespace fsp.lib.Logging; 
 public sealed class MongoDbLoggerConfiguration
 {
     public int EventId { get; set; }
     public Dictionary<string, LogLevel> logLevel { get; set; } = new();
-    public Database database { get; set; } = new();
+    public MongoDbSettings database { get; set; } = new();
 }
 
 [UnsupportedOSPlatform("browser")]

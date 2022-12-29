@@ -6,7 +6,8 @@ namespace fsp.lib.Logging;
     {
         Task CreateAsync(LoggingData loggingData);
         Task<List<LoggingData>> GetAsync();
-        Task<LoggingData?> GetAsync(string id);
+        Task<LoggingData?> GetAsync(string UserId);
+        Task<List<LoggingData>> GetAsync(LoggingRequest request);
         Task RemoveAsync(string id);
         Task UpdateAsync(string id, LoggingData updateLog);
     }

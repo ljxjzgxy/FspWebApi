@@ -9,21 +9,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fsp.lib", "fsp.lib\fsp.lib.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fsp.lib.test", "fsp.lib.test\fsp.lib.test.csproj", "{CFD9E649-6247-4DB1-9FC5-0D6CA352E269}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "logging.svc", "logging.svc\logging.svc.csproj", "{E924A280-D471-4AFA-92FC-D8ADD3A1267F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "logging.daemon", "logging.daemon\logging.daemon.csproj", "{434100AE-21BF-4C12-BB1A-4FC01651987B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "automation", "automation", "{AD2A64BF-FC18-4262-9578-EC39C97844A3}"
 	ProjectSection(SolutionItems) = preProject
-		Jenkinsfile = Jenkinsfile
 		docker-compose.dev.yml = docker-compose.dev.yml
+		Jenkinsfile = Jenkinsfile
 		Jenkinsfile02 = Jenkinsfile02
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nginx", "nginx", "{12D16411-4C11-49C2-A256-7B21762B02F1}"
 	ProjectSection(SolutionItems) = preProject
-		nginx\index.html = nginx\index.html
 		nginx\Dockerfile.dev = nginx\Dockerfile.dev
+		nginx\index.html = nginx\index.html
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "conf.dev", "conf.dev", "{6E69F215-528C-4267-BBC3-6C436FC91109}"
@@ -50,13 +46,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{8C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "identity.svc", "identity.svc\identity.svc.csproj", "{5A5BAF04-C54A-4055-9F72-CD1203A45FD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "session.svc.pri", "session.svc.pri\session.svc.pri.csproj", "{7B9A652D-D883-4A8C-A6C3-F449A46CE458}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "session.svc.pri", "session.svc.pri\session.svc.pri.csproj", "{7B9A652D-D883-4A8C-A6C3-F449A46CE458}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "redis", "redis", "{79C16448-7FB8-4D5A-88A0-9F83BD70CA5B}"
 	ProjectSection(SolutionItems) = preProject
 		redis\Dockerfile.dev = redis\Dockerfile.dev
 		redis\redis.conf = redis\redis.conf
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "monitor.svc.pri", "monitor.svc.pri\monitor.svc.pri.csproj", "{2DEDA387-52E8-467E-929E-D8346489B373}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,14 +70,6 @@ Global
 		{CFD9E649-6247-4DB1-9FC5-0D6CA352E269}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFD9E649-6247-4DB1-9FC5-0D6CA352E269}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFD9E649-6247-4DB1-9FC5-0D6CA352E269}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E924A280-D471-4AFA-92FC-D8ADD3A1267F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E924A280-D471-4AFA-92FC-D8ADD3A1267F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E924A280-D471-4AFA-92FC-D8ADD3A1267F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E924A280-D471-4AFA-92FC-D8ADD3A1267F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{434100AE-21BF-4C12-BB1A-4FC01651987B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{434100AE-21BF-4C12-BB1A-4FC01651987B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{434100AE-21BF-4C12-BB1A-4FC01651987B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{434100AE-21BF-4C12-BB1A-4FC01651987B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5A5BAF04-C54A-4055-9F72-CD1203A45FD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5A5BAF04-C54A-4055-9F72-CD1203A45FD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A5BAF04-C54A-4055-9F72-CD1203A45FD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -88,6 +78,10 @@ Global
 		{7B9A652D-D883-4A8C-A6C3-F449A46CE458}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B9A652D-D883-4A8C-A6C3-F449A46CE458}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B9A652D-D883-4A8C-A6C3-F449A46CE458}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DEDA387-52E8-467E-929E-D8346489B373}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DEDA387-52E8-467E-929E-D8346489B373}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DEDA387-52E8-467E-929E-D8346489B373}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DEDA387-52E8-467E-929E-D8346489B373}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,8 +90,6 @@ Global
 		{158580C5-1CA5-43E7-940D-B6614950DCC0} = {BD2BB885-9324-4B9D-82D7-230EAF706645}
 		{ADC705E2-6BC1-4CC6-9C0B-723C6A77871F} = {BD2BB885-9324-4B9D-82D7-230EAF706645}
 		{CFD9E649-6247-4DB1-9FC5-0D6CA352E269} = {BD2BB885-9324-4B9D-82D7-230EAF706645}
-		{E924A280-D471-4AFA-92FC-D8ADD3A1267F} = {158580C5-1CA5-43E7-940D-B6614950DCC0}
-		{434100AE-21BF-4C12-BB1A-4FC01651987B} = {158580C5-1CA5-43E7-940D-B6614950DCC0}
 		{AD2A64BF-FC18-4262-9578-EC39C97844A3} = {BD2BB885-9324-4B9D-82D7-230EAF706645}
 		{12D16411-4C11-49C2-A256-7B21762B02F1} = {BD2BB885-9324-4B9D-82D7-230EAF706645}
 		{6E69F215-528C-4267-BBC3-6C436FC91109} = {12D16411-4C11-49C2-A256-7B21762B02F1}
@@ -105,6 +97,7 @@ Global
 		{5A5BAF04-C54A-4055-9F72-CD1203A45FD7} = {158580C5-1CA5-43E7-940D-B6614950DCC0}
 		{7B9A652D-D883-4A8C-A6C3-F449A46CE458} = {158580C5-1CA5-43E7-940D-B6614950DCC0}
 		{79C16448-7FB8-4D5A-88A0-9F83BD70CA5B} = {BD2BB885-9324-4B9D-82D7-230EAF706645}
+		{2DEDA387-52E8-467E-929E-D8346489B373} = {158580C5-1CA5-43E7-940D-B6614950DCC0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E7B3507-764D-4753-84B1-6C9E39BD0200}

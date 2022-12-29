@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace fsp.lib.Model.logging;
 public class LoggingData
@@ -17,5 +18,8 @@ public class LoggingData
     public string Routes { get; set; } = "";
     public string UserAgent { get; set; } = "";
     public string Message { get; set; } = "";
+
+
+    [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
     public DateTime LogDate { get; set; }
 }
