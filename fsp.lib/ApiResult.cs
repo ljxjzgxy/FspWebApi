@@ -13,6 +13,7 @@ public class ApiResult<T> : ApiResultBase where T : class
 
 public class ApiResultBase
 {
+    public int Code { get; set; }
     public bool? Success { get; set; }
     public string? Message { get; set; }
 }

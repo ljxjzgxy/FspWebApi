@@ -54,7 +54,7 @@ public class IdentityController : ApiControllerBaseV1
         }
         else
         {
-            return new BadRequestResult();
+            return NotFound(new ApiResult<string> { Code = StatusCodes.Status404NotFound, Success = false,Message ="invalid" });
         }
     }
 }

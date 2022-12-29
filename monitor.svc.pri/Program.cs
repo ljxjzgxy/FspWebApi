@@ -12,6 +12,14 @@ builder.Services.AddControllers();
 var assemblyName = $"{Assembly.GetExecutingAssembly().GetName().Name}";
 builder.Services.AddCustomSwagger(assemblyName);
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(p => {
+        p.WithOrigins(new string[] { "http://192.168.1.171" })
+        .AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+    });
+});
+
 builder.Logging.AddMongoDbLogger();
 
 var app = builder.Build();
@@ -23,6 +31,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsTest())
     app.UseCustomSwaggerUI();
 }
 
+app.UseCors();
 //app.UseHttpsRedirection();
 
 app.UseMiddleware<LoggingMiddleware>();

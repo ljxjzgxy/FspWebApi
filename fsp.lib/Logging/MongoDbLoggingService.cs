@@ -45,9 +45,8 @@ public class MongoDbLoggingService : IMongoDbLoggingService
 
         var SkipCount = (request.PageInex - 1) * request.PageSize;
 
-        var sort = Builders<LoggingData>.Sort.Descending("LogDate");
-        var projection = Builders<LoggingData>.Projection.Exclude("_id");
-        return await _loggingsCollection.Find(filter).Project<LoggingData>(projection).Skip(SkipCount).Limit(request.PageSize).Sort(sort).ToListAsync();
+        var sort = Builders<LoggingData>.Sort.Descending("LogDate");  
+        return await _loggingsCollection.Find(filter).Skip(SkipCount).Limit(request.PageSize).Sort(sort).ToListAsync();
     }
 
     public async Task CreateAsync(LoggingData loggingData) =>

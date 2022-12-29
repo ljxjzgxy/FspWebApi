@@ -20,10 +20,9 @@ public class LoggingController : ApiControllerBaseV1
     [HttpPut]
     public async Task<ActionResult<ApiResult<List<LoggingData>>>> Post(LoggingRequest request)
     {
-        return Ok(new ApiResult<List<LoggingData>>
-        {
+        return new ApiResult<List<LoggingData>>{
             Success = true,
             Data = await _mongoDbLoggingService.GetAsync(request)
-        });
+        };
     }
 }
