@@ -3,25 +3,31 @@ using Newtonsoft.Json;
 using RestSharp;
 
 namespace fsp.lib.HttpClient;
-public class ApiHelper : IApiHelper
+public class HttpUtil : IHttpUtil
 {
     private readonly RestClient _client;
-    public ApiHelper()
+    public HttpUtil()
     {
         _client = new RestClient();
     }
-    public async Task<string?> GetApi<T>(string URI, T requestBody) where T: class
+
+    public async Task<RestResponse> Get(string URI) 
+    {
+        _client.Options.BaseUrl = new Uri(URI);
+        var request = new RestRequest(string.Empty, Method.Get); 
+
+        return await _client.ExecuteAsync(request);
+    }
+    public async Task<RestResponse> Get<T>(string URI, T requestBody) where T: class
     {
         _client.Options.BaseUrl = new Uri(URI);
         var request = new RestRequest(string.Empty, Method.Get);
         request.AddObject<T>(requestBody);
 
-        var response = await _client.ExecuteAsync(request);
-        var content = response.Content;
-        return content;
+        return await _client.ExecuteAsync(request);        
     }
 
-    public async Task<string?> PostApi<T>(string URI, T requestBody) where T: class
+    public async Task<string?> Post<T>(string URI, T requestBody) where T: class
     {
         _client.Options.BaseUrl = new Uri(URI);
         var request = new RestRequest(string.Empty, Method.Post);      

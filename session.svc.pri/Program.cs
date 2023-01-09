@@ -2,6 +2,8 @@ using System.Reflection;
 using fsp.lib;
 using fsp.lib.Appsettings;
 using fsp.lib.DependencyInjection;
+using fsp.lib.DependencyInjection.Individual;
+using fsp.lib.DependencyInjection.UseInjection;
 using fsp.lib.Middleware;
 using fsp.lib.Session;
 using StackExchange.Redis;
@@ -13,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 var assemblyName = $"{Assembly.GetExecutingAssembly().GetName().Name}";
-builder.Services.AddCustomSwagger(assemblyName);
+await builder.AddEssentialCustomServices(assemblyName);
 
 var redisSettings = new RedisSettings();
 builder.Configuration.Bind(nameof(RedisSettings), redisSettings);
@@ -23,8 +25,7 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Conn
             EndPoints = { redisSettings.ConnectionString! },
         })
     );
-builder.Services.AddSingleton<ISessionService,SessionService>();
-builder.Logging.AddMongoDbLogger();
+builder.Services.AddSingleton<ISessionService,SessionService>(); 
 
 var app = builder.Build();
 
@@ -39,5 +40,7 @@ app.UseMiddleware<LoggingMiddleware>();
 //app.UseAuthorization();
 
 app.MapControllers();
+
+app.UserCustomHealthCheck();
 
 app.Run();

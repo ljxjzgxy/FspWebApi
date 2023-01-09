@@ -1,13 +1,13 @@
-﻿ 
+﻿
 using fsp.lib.Logging;
 using Microsoft.Extensions.Logging.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace fsp.lib.DependencyInjection;
+namespace fsp.lib.DependencyInjection.Individual;
 public static class MongoDbLoggerExtensions
 {
-    public static ILoggingBuilder AddMongoDbLogger(
+    public static ILoggingBuilder AddCustomMongoDbLogger(
         this ILoggingBuilder builder)
     {
         builder.AddConfiguration();
@@ -22,12 +22,12 @@ public static class MongoDbLoggerExtensions
         return builder;
     }
 
-    public static ILoggingBuilder AddMongoDbLogger(this ILoggingBuilder builder, Action<MongoDbLoggerConfiguration> configure)
-    {
-        builder.AddMongoDbLogger();
-        builder.Services.Configure(configure);
+    //public static ILoggingBuilder AddMongoDbLogger(this ILoggingBuilder builder, Action<MongoDbLoggerConfiguration> configure)
+    //{
+    //    builder.AddMongoDbLogger();
+    //    builder.Services.Configure(configure);
 
-        return builder;
-    }
+    //    return builder;
+    //}
 }
 

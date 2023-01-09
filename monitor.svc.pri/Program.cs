@@ -1,7 +1,10 @@
 using System.Reflection;
 using fsp.lib;
 using fsp.lib.DependencyInjection;
+using fsp.lib.DependencyInjection.Individual;
+using fsp.lib.DependencyInjection.UseInjection;
 using fsp.lib.Middleware;
+using monitor.svc.pri;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,18 +12,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 var assemblyName = $"{Assembly.GetExecutingAssembly().GetName().Name}";
-builder.Services.AddCustomSwagger(assemblyName);
+await builder.AddEssentialCustomServices(assemblyName);
 
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(p => {
-        p.WithOrigins(new string[] { "http://192.168.1.171","http://127.0.0.1:5173" , "http://localhost:5173" })
-        .AllowAnyMethod().AllowAnyHeader().AllowCredentials();
-    });
-});
 
-builder.Logging.AddMongoDbLogger();
+builder.Services.AddCustomCorsOrigins(); 
+
+builder.Services.AddHostedService<ServicesMonitorDaemon>();
+
 
 var app = builder.Build();
 
@@ -31,13 +31,12 @@ if (app.Environment.IsDevelopment() || app.Environment.IsTest())
     app.UseCustomSwaggerUI();
 }
 
-app.UseCors();
-//app.UseHttpsRedirection();
+app.UseCors(); 
 
-app.UseMiddleware<LoggingMiddleware>();
-
-app.UseAuthorization();
+app.UseMiddleware<LoggingMiddleware>(); 
 
 app.MapControllers();
+
+app.UserCustomHealthCheck();
 
 app.Run();

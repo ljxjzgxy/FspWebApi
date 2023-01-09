@@ -1,8 +1,6 @@
-﻿using System.Runtime.CompilerServices;
+﻿using fsp.lib.Consts;
 using fsp.lib.Model.logging;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace fsp.lib.Logging;
@@ -14,7 +12,7 @@ public class MongoDbLoggingService : IMongoDbLoggingService
     {
         var mongoClient = new MongoClient(config.CurrentValue.database.ConnectionString);
         var mongoDatabase = mongoClient.GetDatabase(config.CurrentValue.database.DbName);
-        _loggingsCollection = mongoDatabase.GetCollection<LoggingData>(config.CurrentValue.database.CollectionName);
+        _loggingsCollection = mongoDatabase.GetCollection<LoggingData>(MongoDbTable.Logging);
     }
 
     public async Task<List<LoggingData>> GetAsync() =>

@@ -31,7 +31,9 @@ public sealed class MongoDbLoggerProvider : ILoggerProvider
         _currentConfig = config.CurrentValue;
         _onChangeToken = config.OnChange(updatedConfig => _currentConfig = updatedConfig);
         _mongoDbLoggingService = serviceProvider.GetRequiredService<IMongoDbLoggingService>();
-        _assemblyName =  $"{Assembly.GetEntryAssembly().GetName().Name}";
+        var assembly = Assembly.GetEntryAssembly();
+        if (assembly == null) _assemblyName = "Unknown Assembly";
+        else _assemblyName =  $"{assembly.GetName().Name}";
     }
 
     public ILogger CreateLogger(string categoryName) =>

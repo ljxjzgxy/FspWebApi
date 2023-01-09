@@ -17,18 +17,18 @@ public class IdentityController : ApiControllerBaseV1
 {
     private readonly IUsersService _usersService;
     private readonly IJwtService _jwtService;
-    private readonly IApiHelper _apiHelper;
+    private readonly IHttpUtil _httpUtil;
     private readonly ServiceUriInternal _serviceUriInternal;
 
-    public IdentityController(IUsersService usersService,IJwtService jwtService,IApiHelper apiHelper,IOptions<ServiceUriInternal> optServiceUriInternal)
+    public IdentityController(IUsersService usersService,IJwtService jwtService,IHttpUtil httpUtil,IOptions<ServiceUriInternal> optServiceUriInternal)
     {
         _usersService = usersService;
         _jwtService = jwtService;
-        _apiHelper = apiHelper;
+        _httpUtil = httpUtil;
         _serviceUriInternal = optServiceUriInternal.Value;
     }
 
-    [HttpPost]
+    [HttpPut]
     public async Task<ActionResult<ApiResult<IdentityResponse>>> IssueToken(IdentityRequest request)
     {
         var UserId = request.UserId??"";
@@ -41,7 +41,7 @@ public class IdentityController : ApiControllerBaseV1
             SessionData sessionData = new SessionData();
             sessionData.UserId = UserId;
             sessionData.Token = token;
-            await _apiHelper.PostApi<SessionData>(_serviceUriInternal.SessionSvc!,sessionData);
+            await _httpUtil.Post<SessionData>(_serviceUriInternal.SessionSvc!,sessionData);
 
             IdentityResponse response = new IdentityResponse();
             response.token = token;      

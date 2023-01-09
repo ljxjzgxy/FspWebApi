@@ -1,6 +1,6 @@
 ﻿using fsp.lib.Swagger;
 
-namespace fsp.lib.DependencyInjection
+namespace fsp.lib.DependencyInjection.Individual
 {
     public static class Swagger
     {
