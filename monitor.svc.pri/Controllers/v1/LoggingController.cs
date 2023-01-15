@@ -18,7 +18,7 @@ public class LoggingController : ApiControllerBaseV1
 
 
     [HttpPut]
-    public async Task<ActionResult<ApiResult<List<LoggingData>>>> Post(LoggingRequest request)
+    public async Task<ActionResult<ApiResult<List<LoggingData>>>> FetchLoggingData(LoggingRequest request)
     {
         return new ApiResult<List<LoggingData>>{
             Success = true,

@@ -65,6 +65,8 @@ namespace fsp.lib.DependencyInjection.Individual
                 //});
 
                 c.OperationFilter<FileUploadFilter>();
+
+                c.SchemaFilter<EnumSchemaFilter>();
             });
 
             return services;

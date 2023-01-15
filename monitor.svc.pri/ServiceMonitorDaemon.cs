@@ -6,19 +6,21 @@ using fsp.lib.ValueObject;
 using System.Net.Sockets;
 using System.Net;
 using fsp.lib.HttpClient;
+using Microsoft.AspNetCore.SignalR;
+using monitor.svc.pri.SignalRHub;
 
 namespace monitor.svc.pri;
 
 public class ServicesMonitorDaemon : BackgroundService
-{
-    private readonly ILogger<ServicesMonitorDaemon> _logger;
+{  
     private readonly IMongoDbService _mongoDbService;
     private readonly IHttpUtil _httpUtil;
-    public ServicesMonitorDaemon(ILogger<ServicesMonitorDaemon> logger, IMongoDbService mongoDbService, IHttpUtil httpUtil)
+    private readonly IHubContext<ServicesMonitorHub> _hubContext;
+    public ServicesMonitorDaemon(IMongoDbService mongoDbService, IHttpUtil httpUtil, IHubContext<ServicesMonitorHub> hubContext)
     {
-        _logger = logger;
         _mongoDbService = mongoDbService;
         _httpUtil = httpUtil;
+        _hubContext = hubContext;
     }
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -50,7 +52,9 @@ public class ServicesMonitorDaemon : BackgroundService
 
                     await _mongoDbService.UpsertMonitorData(serviceMonitorData, MongoDbTable.Monitor);
                 }
-            } 
+            }
+
+            await _hubContext.Clients.All.SendAsync("ClientServicesMonitorDataUpdate", servicesMonitorData);
         }
     }
 }

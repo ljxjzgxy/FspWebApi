@@ -5,20 +5,18 @@ using fsp.lib.DependencyInjection.Individual;
 using fsp.lib.DependencyInjection.UseInjection;
 using fsp.lib.Middleware;
 using monitor.svc.pri;
+using monitor.svc.pri.SignalRHub;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
 var assemblyName = $"{Assembly.GetExecutingAssembly().GetName().Name}";
 await builder.AddEssentialCustomServices(assemblyName);
 
 
-builder.Services.AddCustomCorsOrigins(); 
+builder.Services.AddCustomCorsOrigins();
 
+builder.Services.AddSignalR();
 builder.Services.AddHostedService<ServicesMonitorDaemon>();
 
 
@@ -38,5 +36,7 @@ app.UseMiddleware<LoggingMiddleware>();
 app.MapControllers();
 
 app.UserCustomHealthCheck();
+
+app.MapHub<ServicesMonitorHub>("/servicesMonitorHub");
 
 app.Run();
