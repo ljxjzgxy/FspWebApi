@@ -10,12 +10,26 @@ function SignalRTest() {
 
     useEffect(() => {
         const con = new HubConnectionBuilder()
-            .withUrl('http://localhost:5009/servicesMonitorHub')
+            //.withUrl('http://localhost:5009/servicesMonitorHub')
+            .withUrl("http://192.168.1.161:7003/servicesMonitorHub")
             .withAutomaticReconnect()
             .build();
 
         setConnection(con);
         setConStatus("Building SignalR connection...");
+
+        fetch("http://192.168.1.161:7003/api/v1/Monitor", {
+            method: 'put', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            }
+        }).then(response => response.json()).then(obj => {
+            setReceivedMsg(obj.data) 
+        })
     }, []);
 
     useEffect(() => {
