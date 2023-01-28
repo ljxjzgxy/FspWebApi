@@ -58,9 +58,7 @@ services:
     networks:
         - dev_network
     ports:
-        - 7004:80
-    depends_on:
-        - mongodb
+        - 7004:80  
       
   redis:
     image: dev.redis:v1.1

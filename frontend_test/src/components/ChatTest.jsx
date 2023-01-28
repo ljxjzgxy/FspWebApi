@@ -9,7 +9,7 @@ function ChatTest() {
     const [messageOut, setMessageOut] = useState(null);
     const [msgArrIn, setMsgArrIn] = useState([]);
 
-    const BaseUrl = "http://localhost:5027";
+    const BaseUrl = "http://192.168.1.161:7004";
     const hubEndPoint = '/chat'
 
     useEffect(() => {
