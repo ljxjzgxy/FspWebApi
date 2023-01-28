@@ -46,7 +46,22 @@ services:
       - 7003:80
     depends_on:
       - mongodb
-   
+
+  chat:
+    image: chat.dev.tool:v1.1
+    container_name: chat.dev.tool
+    build:
+        context: ./
+        dockerfile: chat.dev/Dockerfile
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+        - dev_network
+    ports:
+        - 7004:80
+    depends_on:
+        - mongodb
+      
   redis:
     image: dev.redis:v1.1
     container_name: dev.redis

@@ -9,7 +9,9 @@ public static class Cors
     {
         if (origins == null || origins.Length == 0)
         {
-            origins = new string[] { "http://192.168.1.171", "http://127.0.0.1:5173", "http://localhost:5173","http://127.0.0.1:3000", "http://localhost:3000" };
+            origins = new string[] { "http://192.168.1.171", "http://127.0.0.1:5173", "http://localhost:5173","http://127.0.0.1:3000", "http://localhost:3000",
+                "http://192.168.1.161:5696"
+            };
         }
 
         services.AddCors(options =>

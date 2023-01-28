@@ -50,11 +50,11 @@ hr.line {
     overflow: auto;
     border-radius: 5px;
     margin-bottom: 2px;
-    width:50%;
-    font-size:1.5rem;
-    border:1px dotted lightgrey;
-    padding:5px 10px;
-    margin-top:5px;
+    width: 50%;
+    font-size: 1.5rem;
+    border: 1px dotted lightgrey;
+    padding: 5px 10px;
+    margin-top: 5px;
 }
 
 .user-message {
@@ -63,8 +63,28 @@ hr.line {
     font-size: 18px;
 }
 
-.messageLine{
-    border:1px dashed red;
+.messageUserLine {
+    background-color: gainsboro;
+    color: darkgoldenrod;
+    padding: 2px 10px;
+    border-radius: 5px;
+    max-width: 20rem;
+    min-width: 10rem;
+    text-align: right;
+}
+
+.rightMsg {
+    display: flex;
+    justify-content: right;
+}
+
+.messageUserLine2 {
+    background-color: deepskyblue;
+    color: white;
+    padding: 2px 10px;
+    border-radius: 5px;
+    max-width: 15rem;
+    min-width: 10rem;
 }
 
 .message {
@@ -76,6 +96,7 @@ hr.line {
     margin-top: 3px;
     width: 50%;
 }
+
 .SendBtn {
     min-width: 10rem;
     height: 3rem;

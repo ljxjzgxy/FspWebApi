@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import { HubConnectionBuilder } from '@microsoft/signalr';
 
 function ChatTest() {
@@ -36,7 +36,7 @@ function ChatTest() {
                     setConStatus('Connected!');
                     connection.on('ReceiveMessage', (user, message) => {
                         console.log(user, message, "------------->ReceiveMessage");
-                        setMsgArrIn(prev => [{ user, message }, ...prev]);
+                        setMsgArrIn(prev => [...prev, { user, message }]);
                     });
                 })
                 .catch(e => {
@@ -46,18 +46,11 @@ function ChatTest() {
         }
     }, [connection]);
 
-    const setUpUser = () => {
-        let timer = null;
-
-        return (e) => {
-            setUser(e.target.value);
-
-            window.clearInterval(timer);
-            timer = window.setTimeout(() => {
-                localStorage.setItem("user", JSON.stringify(user));
-            },500)
-        }
+    const setUpUser = (e) => {
+        setUser(e.target.value);
+        localStorage.setItem("user", JSON.stringify(e.target.value));
     }
+
     const sendMessage = _ => {
         console.log(user, messageOut, "user - messageout")
         if (messageOut === null || user === null) return;
@@ -69,22 +62,32 @@ function ChatTest() {
         });
     }
 
+    const sendMessageOnEnter = (e) => {
+        if (e.charCode === 13) {
+            sendMessage();
+        }
+    }
+
     return (
         <>
             <h1>{conStatus}</h1>
-            <input onChange={ setUpUser()} placeholder="enter user name" value={user === null ? "" : user}></input>
+            <input onChange={e => setUpUser(e)} placeholder="enter user name" value={user === null ? "" : user}></input>
             <div className='message-container'>
                 {msgArrIn.map((msg, index) =>
                     <pre key={index}>
                         {msg.user === user ?
-                            <div style={{ textAlign: 'right' }}>
-                                <p>{msg.user}</p>
-                                <p>{msg.message}</p>
+                            <div>
+                                <div className="rightMsg">
+                                    <div className="messageUserLine">{msg.user} (YOU)</div>
+                                </div>
+                                <div className="rightMsg">
+                                    <div>{msg.message}</div>
+                                </div>
                             </div>
                             :
                             <div style={{ textAlign: 'left' }}>
-                                <p>{msg.user}</p>
-                                <p>{msg.message}</p>
+                                <div className="messageUserLine2">{msg.user}</div>
+                                <div>{msg.message}</div>
                             </div>
                         }
 
@@ -92,10 +95,10 @@ function ChatTest() {
                 )
                 }
             </div>
-            <p><input type="input" placeholder="enter message" className='message' onChange={e => setMessageOut(e.target.value)} value={messageOut === null ? "" : messageOut} ></input></p>
+            <p><input type="input" placeholder="enter message" className='message' onChange={e => setMessageOut(e.target.value)} value={messageOut === null ? "" : messageOut} onKeyPress={ sendMessageOnEnter }></input></p>
             <p><button disabled={user === null || conStatus === ""} onClick={sendMessage} className='SendBtn'>Send</button></p>
         </>
     );
 }
 
-export default ChatTest; 
+export default ChatTest;
