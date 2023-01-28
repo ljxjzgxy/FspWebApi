@@ -1,9 +1,11 @@
- import SignalRTest from './components/SignalRTest';
+ import ChatTest from './components/ChatTest';
+//import SignalRTest from './components/SignalRTest';
+import './App.css'
 
 function App() {
   return (
     <div className="App">
-     <SignalRTest />      
+     <ChatTest />      
     </div>
   );
 }
