@@ -55,6 +55,7 @@ services:
         dockerfile: chat.dev/Dockerfile
     environment:
         - ASPNETCORE_ENVIRONMENT=Development
+    restart: always
     networks:
         - dev_network
     ports:
