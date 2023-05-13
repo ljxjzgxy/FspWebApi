@@ -28,7 +28,7 @@ public class MongoDbLoggingService : IMongoDbLoggingService
 
 
         if (request.DateStart != null) filter &= builder.Gte(x => x.LogDate, request.DateStart.Value.ToUniversalTime());
-        if (request.DateEnd != null) filter &= builder.Lte(x => x.LogDate,request.DateEnd.Value.ToUniversalTime());
+        if (request.DateEnd != null) filter &= builder.Lte(x => x.LogDate,request.DateEnd.Value.AddDays(1).ToUniversalTime());
         if (!string.IsNullOrEmpty(request.Loglevel)) filter &= builder.Eq(x => x.Loglevel, request.Loglevel);
         if (!string.IsNullOrEmpty(request.Loglevel)) filter &= builder.Eq(x => x.Loglevel, request.Loglevel);
         if (!string.IsNullOrEmpty(request.Environment)) filter &= builder.Eq(x => x.Environment, request.Environment);
